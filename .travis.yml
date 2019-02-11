@@ -22,9 +22,16 @@ before_install:
 - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --username $USERNAME --jwtkeyfile assets/server.key
   --instanceurl "https://login.salesforce.com" --setdefaultdevhubusername -a HubOrg
 script:
+- sfdx force:package:create --name th-dreamhouse --description "My Dreamhouse Package" --packagetype Unlocked \
+  --path force-app --nonamespace --targetdevhubusername HubOrg
 - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg --wait
   5
+- sfdx force:package:version:create -p th-dreamhouse -d force-app -k test1234 --wait 10 -v HubOrg
+- sfdx force:package:install --wait 10 --publishwait 10 --package dreamhouse@1.0.0-1 \ 
+  -k test1234 -r -u ciorg
 - sfdx force:org:display -u ciorg
-- sfdx force:source:push -u ciorg
 - sfdx force:apex:test:run -u ciorg --wait 10
+- sfdx force:package:version:promote -p dreamhouse@1.0.0-1 -v HubOrg
+- sfdx force:package:install --wait 10 --publishwait 10 --package dreamhouse@1.0.0-1 \ 
+  -k test1234 -r -u HubOrg
 - sfdx force:org:delete -u ciorg -p
