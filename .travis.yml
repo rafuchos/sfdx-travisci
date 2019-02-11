@@ -24,8 +24,8 @@ before_install:
 script:
 - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg --wait
   5
-- sfdx force:package:version:create -p th-dreamhouse -d force-app -k test1234 --wait 10 -v HubOrg
-- sfdx force:package:install --wait 10 --publishwait 10 --package dreamhouse@1.0.0-1 
+- sfdx force:package:version:create -p "th-dreamhouse" -d "force-app" -k test1234 --wait 10 -v HubOrg
+- sfdx force:package:install --wait 10 --publishwait 10 --package th-dreamhouse@1.0.0-1 
   -k test1234 -r -u ciorg
 - sfdx force:org:display -u ciorg
 - sfdx force:apex:test:run -u ciorg --wait 10
