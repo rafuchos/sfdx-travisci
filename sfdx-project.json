@@ -20,6 +20,7 @@
     "sourceApiVersion": "44.0",
     "packageAliases": {
         "dreamhouse": "0Hoxxx",
-        "th-dreamhouse": "0Ho1N0000008ON0SAM"
+        "th-dreamhouse": "0Ho1N0000008ON0SAM",
+        "th-dreamhouse@0.1.0-1": "04t1N000002D2A9QAK"
     }
 }
